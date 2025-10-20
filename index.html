@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Sentiment Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Phân tích Văn bản Nâng cao với AWS Comprehend</h1>
+        <form id="sentimentForm">
+            <textarea id="commentInput" placeholder="Nhập văn bản của bạn tại đây... (Thử tiếng Anh hoặc tiếng Việt)" required></textarea>
+            <button type="submit">Phân tích chi tiết</button>
+        </form>
+
+        <div id="loading" style="display: none;">Đang phân tích...</div>
+        
+        <div id="results-container">
+            
+            <div class="result-card" id="summary-card" style="display: none;">
+                <h2>Kết quả Tổng quan</h2>
+                <div id="summary-content"></div>
+            </div>
+
+            <div class="result-card" id="scores-card" style="display: none;">
+                <h2>Chi tiết Điểm Cảm xúc</h2>
+                <div id="sentiment-scores"></div>
+            </div>
+
+            <div class="result-card" id="phrases-card" style="display: none;">
+                <h2>Các Cụm từ khóa (Key Phrases)</h2>
+                <div id="key-phrases"></div>
+            </div>
+
+            <div class="result-card" id="entities-card" style="display: none;">
+                <h2>Các Thực thể (Entities)</h2>
+                <div id="entities"></div>
+            </div>
+
+            <div class="result-card error" id="error-card" style="display: none;">
+                <div id="error-message"></div>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
