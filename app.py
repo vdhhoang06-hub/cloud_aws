@@ -44,6 +44,7 @@ def analyze_text():
         # Điều này rất quan trọng vì các API khác cần biết LanguageCode
         lang_response = comprehend_client.detect_dominant_language(Text=comment_text)
         language_code = lang_response['Languages'][0]['LanguageCode']
+        print("\nAll detected languages:", lang_response['Languages'])
 
         # 2. Gọi API Detect Sentiment (Phân tích cảm xúc)
         sentiment_response = comprehend_client.detect_sentiment(
@@ -56,6 +57,7 @@ def analyze_text():
             Text=comment_text,
             LanguageCode=language_code
         )
+        print("\nPhrases response:", phrases_response)
         # Lấy các cụm từ và làm sạch
         key_phrases = [phrase['Text'] for phrase in phrases_response['KeyPhrases']]
 
@@ -65,6 +67,7 @@ def analyze_text():
             Text=comment_text,
             LanguageCode=language_code
         )
+        print("\nEntities response:", entities_response)
         # Lấy các thực thể và làm sạch
         entities = [
             {"text": entity['Text'], "type": entity['Type']} 
@@ -79,7 +82,7 @@ def analyze_text():
             "keyPhrases": key_phrases,
             "entities": entities
         }
-        print("\nAnalysis result sau khi xử lý:", result)
+        print("========\nAnalysis result sau khi xử lý:", result)
         
         return jsonify(result)
 
