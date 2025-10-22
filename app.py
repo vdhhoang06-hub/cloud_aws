@@ -7,8 +7,8 @@ app = Flask(__name__)
 CORS(app) # Cho phép Cross-Origin Resource Sharing
 
 # AWS Credentials - Paste your credentials here
-AWS_ACCESS_KEY_ID = "your_access_key_id"
-AWS_SECRET_ACCESS_KEY = "your_secret_access_key"
+AWS_ACCESS_KEY_ID = "your_access_key"
+AWS_SECRET_ACCESS_KEY = "your_secret_key"
 AWS_REGION = "ap-southeast-1"  # Sử dụng region Singapore
 
 # Cấu hình client cho AWS Comprehend
@@ -31,12 +31,13 @@ def analyze_text():
         return jsonify({"error": "AWS client not configured"}), 500
 
     data = request.get_json()
+    print("\nJSON REQUEST từ frontend")
+    print("Received data:", data)
+    
     if not data or 'text' not in data:
         return jsonify({"error": "Missing 'text' in request body"}), 400
     
     comment_text = data['text']
-    
-    # --- PHẦN NÂNG CẤP ---
     
     try:
         # 1. Tự động phát hiện ngôn ngữ
@@ -74,10 +75,11 @@ def analyze_text():
         result = {
             "language": language_code,
             "overallSentiment": sentiment_response.get('Sentiment'),
-            "sentimentScores": sentiment_response.get('SentimentScore'), # Đây là phần chi tiết em muốn!
+            "sentimentScores": sentiment_response.get('SentimentScore'),
             "keyPhrases": key_phrases,
             "entities": entities
         }
+        print("\nAnalysis result sau khi xử lý:", result)
         
         return jsonify(result)
 
